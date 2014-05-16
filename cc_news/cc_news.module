@@ -1,0 +1,94 @@
+<?php
+/**
+ * @file
+ * Code for the cc_news feature.
+ */
+
+include_once 'cc_news.features.inc';
+
+
+function cc_news_form_views_exposed_form_alter(&$form, &$form_state) {
+
+	if ( $form['#id'] == "views-exposed-form-news-listing-block" ) {
+	
+		$show_exposed = false;
+
+		$node = node_load(arg(1));
+
+
+		if ( $node->field_nl_expose_order['und'][0]['value'] == 1 ) {
+			$form['sort_order']['#title'] =  'Sort by' ; 
+			$show_exposed = true;
+		} else {
+			$form['sort_order']['#title'] =  '' ; 
+			$form['sort_order']['#type'] =  'hidden' ; 			
+		}
+
+		if ( $node->field_nl_expose_title['und'][0]['value'] == 1 ) {
+			$form['title']['#title'] =  t('Title') ; 
+			$show_exposed = true;
+		} else {
+	    $form['title']['#type'] =  'hidden' ; 
+			$form['title']['#title'] =  '' ; 
+		}
+
+
+		if ( $node->field_nl_expose_title['und'][0]['value'] == 1 ) {		
+    	$form['body_value']['#title'] =  'Search in body' ; 
+			$show_exposed = true;
+    } else {
+    	$form['body_value']['#title'] =  '' ; 
+    	$form['body_value']['#type'] =  'hidden' ;     	
+    }
+
+		$form['sort_by']['#title'] =  '' ; 
+		$form['sort_by']['#type'] =  'hidden' ; 
+
+		if ( ! $show_exposed ) {
+			$form['submit'] = array();
+		}
+
+	}
+	
+
+}
+
+function cc_news_form_views_exposed_form_validate(&$form, &$form_state) {
+	// print ("HOOOOLA[" . $form['body_value']['#value'] . "]");
+	 // dprint_r ($form['title']['#value']);
+
+	// if ($form['title']['#value'] != "") {
+	// 	// $form_state['values']['body_value'] =  $form['title']['#value'] ; 
+	// 	$form['body_value']['#value'] =  $form['title']['#value'] ; 
+
+	// 	$form['title']['#value'] = "";
+	// }
+  	
+  // $form['title']['#value'] =""; 
+	
+  // dpm($form_state);
+	// dprint_r ($form_state);
+
+	// dpm($form);
+}
+
+// function cc_news_views_pre_view(&$view, &$display_id, &$args) {
+// // dprint_r($view);
+
+// // 	dpm ($view);
+// // dpm($args);turpis
+// }
+
+
+// function cc_news_views_pre_execute(&$view) {
+
+// 	$body_filter = $view->exposed_raw_input['body_value'];
+// 	if (isset($body_filter))
+// 		$view->exposed_raw_input['title'] = $body_filter;
+
+
+// 	dpm($body_filter);
+
+// 	dpm ($view);
+
+// }

@@ -1,0 +1,49 @@
+<?php
+/**
+ * @file
+ * cc_publication.features.inc
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function cc_publication_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "context" && $api == "context") {
+    return array("version" => "3");
+  }
+  if ($module == "ds" && $api == "ds") {
+    return array("version" => "1");
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function cc_publication_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
+ * Implements hook_node_info().
+ */
+function cc_publication_node_info() {
+  $items = array(
+    'publication' => array(
+      'name' => t('Publication'),
+      'base' => 'node_content',
+      'description' => t('Content type for publications'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'publication_list' => array(
+      'name' => t('Publication list'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+  );
+  return $items;
+}

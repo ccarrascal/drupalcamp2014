@@ -1,0 +1,37 @@
+<?php
+/**
+ * @file
+ * Code for the cc_publication feature.
+ */
+
+include_once 'cc_publication.features.inc';
+
+
+function cc_publication_form_views_exposed_form_alter(&$form, &$form_state) {
+
+	if ( $form['#id'] == "views-exposed-form-publication-list-block" ) {
+
+		$node = node_load(arg(1));
+
+		if ( $node->field_pl_expose_order['und'][0]['value'] == 1 ) {
+			$form['sort_order']['#title'] =  'Sort by' ; 
+		} else {
+			$form['sort_order']['#title'] =  '' ; 
+			$form['sort_order']['#type'] =  'hidden' ; 			
+		}
+
+		if ( $node->field_pl_expose_author['und'][0]['value'] == 1 ) {
+			$form['field_pub_author_tid']['#title'] =  t('Author') ; 
+		} else {
+	    $form['field_pub_author_tid']['#type'] =  'hidden'; 
+			$form['field_pub_author_tid']['#title'] =  '';
+			$form['field_pub_author_tid']['#value'] =  array() ;  // Ponemos un array para la seleccion multiple
+
+		}
+
+		$form['sort_by']['#title'] =  '' ; 
+		$form['sort_by']['#type'] =  'hidden' ; 
+
+	}
+
+}

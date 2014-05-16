@@ -1,0 +1,12 @@
+name = cc_core
+description = Core components
+core = 7.x
+package = CC
+version = 7.x-0.1-dev
+project = cc_core
+dependencies[] = features
+dependencies[] = taxonomy
+features[features_api][] = api:2
+features[taxonomy][] = author
+features[taxonomy][] = genre
+features[taxonomy][] = tags
